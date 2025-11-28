@@ -1,0 +1,36 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-7">
+      <div class="card shadow-sm p-4">
+        <h4 class="fw-semibold mb-3">Account Settings</h4>
+        <div *ngIf="error()" class="alert alert-danger py-1 small">{{ error() }}</div>
+        <div *ngIf="success()" class="alert alert-success py-1 small">{{ success() }}</div>
+        <form (ngSubmit)="save()">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Name</label>
+            <input class="form-control" [value]="name()" (input)="name.set($any($event.target).value)">
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Bio</label>
+            <textarea class="form-control" [value]="bio()" (input)="bio.set($any($event.target).value)" rows="2"></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Avatar URL</label>
+            <input class="form-control" [value]="avatar()" (input)="avatar.set($any($event.target).value)">
+            <img *ngIf="avatar()" [src]="avatar()" class="rounded-circle mt-2" width="64" height="64" style="object-fit:cover;">
+          </div>
+          <button type="submit" class="btn btn-primary">Save Profile</button>
+        </form>
+        <hr>
+        <form (ngSubmit)="changePassword()">
+          <div class="mb-2 fw-semibold">Change Password</div>
+          <div class="input-group mb-2">
+            <input type="password" class="form-control" placeholder="New password"
+                   [value]="password()" (input)="password.set($any($event.target).value)">
+            <button type="submit" class="btn btn-outline-secondary">Change</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

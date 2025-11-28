@@ -1,0 +1,85 @@
+<div class="container py-4">
+  <h2 class="fw-bold text-center mt-4">Discover</h2>
+  <div class="text-center text-muted mb-2">Step into a new zone, join a new conversation.</div>
+
+  <div class="row mb-3 justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <input class="form-control mb-2" placeholder="Search authors..." [(ngModel)]="authorSearch"
+        (ngModelChange)="searchAuthors()">
+    </div>
+    <div class="col-md-4 col-lg-3">
+      <select class="form-select" [(ngModel)]="selectedType" (ngModelChange)="searchAuthors()">
+        <option value="Articles">Articles</option>
+        <option value="Authors">Authors</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="mb-3 text-center">
+    <span class="badge bg-light text-dark mx-1" *ngFor="let tag of trendingTags()">{{ tag }}</span>
+  </div>
+
+  <h4 class="fw-semibold mt-4 mb-2">Readers' choice</h4>
+  <div class="row mb-4">
+    <ng-container *ngIf="filteredArticles().length; else noArticles">
+      <div class="col-sm-6 col-md-3" *ngFor="let article of filteredArticles()">
+        <div class="card mb-3 shadow-sm">
+          <img [src]="article.thumbnail" class="card-img-top" style="height:120px;object-fit:cover;">
+          <div class="card-body pb-2">
+            <div class="fw-semibold">{{ article.title }}</div>
+            <div class="small text-muted">{{ article.summary }}</div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #noArticles>
+      <div class="col-12 text-center text-muted py-3">
+        No articles found matching your search.
+      </div>
+    </ng-template>
+  </div>
+
+  <h4 class="fw-semibold mb-2">Rising authors</h4>
+  <div class="row mb-4 align-items-stretch">
+    <!-- Social Connect Card (First) -->
+    <div class="col-sm-6 col-md-3 mb-3">
+      <div class="card h-100 px-3 py-4 d-flex flex-column justify-content-center">
+        <div class="d-flex justify-content-between align-items-start mb-2">
+          <span class="fw-semibold">Connect to your social media.</span>
+          <button type="button" class="btn-close btn-sm" aria-label="Close"></button>
+        </div>
+        <small class="text-muted mb-3">Discover Quill writers you already follow on social media.</small>
+        <div>
+          <button class="btn btn-light btn-circle me-2"><i class="bi bi-google"></i></button>
+          <button class="btn btn-light btn-circle me-2"><i class="bi bi-github"></i></button>
+          <button class="btn btn-light btn-circle"><i class="bi bi-twitter"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Author Cards -->
+    <ng-container *ngIf="filteredAuthors().length; else noAuthors">
+      <div class="col-sm-6 col-md-3 mb-3" *ngFor="let author of filteredAuthors()">
+        <div class="card h-100 shadow-sm">
+          <div class="card-header bg-transparent border-0 pb-1">
+            <span class="badge bg-light text-dark">{{ author.tags[0] | uppercase }}</span>
+          </div>
+          <div class="card-body text-center pt-2">
+            <img [src]="author.avatar || 'https://via.placeholder.com/64x64.png?text=Avatar'"
+              class="rounded-circle mb-2" width="64" height="64" style="object-fit:cover;">
+            <div class="fw-semibold mb-1">{{ author.name }}</div>
+            <small class="text-muted d-block mb-1">{{ author.followers }} views</small>
+            <div class="small text-muted mb-2">{{ author.bio }}</div>
+            <button class="btn btn-dark w-75">Visit <span aria-label="arrow">→</span></button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #noAuthors>
+      <div class="col-12 text-center text-muted py-3">
+        No authors found matching your search.
+      </div>
+    </ng-template>
+  </div>
+
+</div>

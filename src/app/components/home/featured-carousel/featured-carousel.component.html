@@ -1,0 +1,30 @@
+<div *ngIf="featuredArticles().length > 0" id="featuredCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button *ngFor="let a of featuredArticles(); let i = index"
+            type="button"
+            data-bs-target="#featuredCarousel"
+            [attr.data-bs-slide-to]="i"
+            [class.active]="i === 0"
+            [attr.aria-current]="i === 0 ? 'true' : null"
+            [attr.aria-label]="'Slide ' + (i + 1)"></button>
+  </div>
+  <div class="carousel-inner">
+    <div *ngFor="let article of featuredArticles(); let i = index"
+         class="carousel-item"
+         [class.active]="i === 0">
+      <img [src]="article.thumbnail" class="d-block w-100" alt="Featured article image" style="height:230px;object-fit:cover;">
+      <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded-3 p-3 mb-3">
+        <h5 class="text-white mb-1">{{ article.title }}</h5>
+        <p class="text-white-50 mb-0">{{ article.summary }}</p>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#featuredCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#featuredCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>

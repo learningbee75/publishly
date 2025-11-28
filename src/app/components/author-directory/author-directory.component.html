@@ -1,0 +1,18 @@
+<div class="container py-4">
+  <h2 class="mb-4 fw-semibold">Authors</h2>
+  <div class="row mb-4">
+    <div class="col-md-6 col-lg-4">
+      <input class="form-control"
+             placeholder="Search authors..."
+             [value]="search()"
+             (input)="search.set($any($event.target).value)">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-md-6 mb-4"
+         *ngFor="let author of filtered()">
+      <app-author-card [author]="author"></app-author-card>
+    </div>
+    <div *ngIf="!filtered().length" class="text-muted ps-2">No authors found.</div>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+.author-card {
+  border-radius: 12px;
+  transition: box-shadow 0.13s;
+  &:hover {
+    box-shadow: 0 8px 24px rgba(22, 153, 142, 0.08);
+  }
+  img {
+    border: 2px solid #dedede;
+  }
+  .fw-semibold {
+    color: #11324d;
+    font-size: 1.1rem;
+  }
+}

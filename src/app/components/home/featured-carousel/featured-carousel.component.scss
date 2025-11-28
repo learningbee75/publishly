@@ -1,0 +1,22 @@
+.carousel {
+  border-radius: 14px;
+  overflow: hidden;
+  background: #f7fafb;
+  margin-bottom: 1rem;
+  .carousel-item img {
+    border-radius: 14px;
+    background: #eaeaea;
+  }
+  .carousel-indicators [data-bs-target] {
+    background-color: #16998e;
+  }
+  .carousel-indicators .active {
+    background-color: #12616a;
+  }
+  .carousel-caption {
+    left: 4%;
+    right: 4%;
+    bottom: 7px;
+    padding: 0.81rem 0.9rem 0.67rem 0.9rem;
+  }
+}

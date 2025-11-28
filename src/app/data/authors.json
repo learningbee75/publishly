@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "name": "Ava Patel",
+    "email": "ava.patel@example.com",
+    "bio": "Angular GDE, open-source advocate, and tech writer.",
+    "avatar": "https://randomuser.me/api/portraits/women/20.jpg",
+    "joined": "2021-10-14T17:30:00Z",
+    "articleCount": 1
+  },
+  {
+    "id": 2,
+    "name": "Max Jansen",
+    "email": "max.jansen@example.com",
+    "bio": "Frontend architect, RxJS contributor.",
+    "avatar": "https://randomuser.me/api/portraits/men/40.jpg",
+    "joined": "2023-01-23T09:05:00Z",
+    "articleCount": 1
+  },
+  {
+    "id": 3,
+    "name": "Sara Li",
+    "email": "sara.li@example.com",
+    "bio": "Full-stack dev with a love for TypeScript.",
+    "avatar": "https://randomuser.me/api/portraits/women/44.jpg",
+    "joined": "2022-06-02T15:48:00Z",
+    "articleCount": 1
+  }
+]

@@ -1,0 +1,177 @@
+<!-- <div class="card mt-4 shadow-sm">
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-end mb-3">
+      <h5 class="card-title mb-0">Comments</h5>
+      <select class="form-select w-auto ms-3"
+              [value]="sortBy()"
+              (change)="sortBy.set($any($event.target).value); loadComments()">
+        <option value="newest">Newest</option>
+        <option value="oldest">Oldest</option>
+        <option value="top">Most Liked</option>
+      </select>
+    </div>
+
+    <div *ngFor="let c of comments()" class="d-flex gap-2 align-items-start mb-3 border-bottom pb-2">
+      <img [src]="getUser(c.userId).avatar || 'assets/avatar.svg'" class="rounded-circle" width="36" height="36" style="object-fit:cover;">
+     <div>
+        <div class="fw-semibold">{{ getUser(c.userId).name }}</div>
+        <div class="text-muted small">{{ c.createdAt | date:'short' }}</div>
+        <div class="mt-1 mb-1">{{ c.text }}</div>
+      </div>
+    </div>
+    <div class="text-muted" *ngIf="!comments().length">No comments yet.</div>
+
+    <div *ngIf="isLoggedIn()" class="mt-4">
+      <textarea class="form-control mb-2"
+                rows="2"
+                placeholder="Write a comment..."
+                [value]="commentText()"
+                (input)="commentText.set($any($event.target).value)">
+      </textarea>
+      <button class="btn btn-sm btn-primary" (click)="submitComment()" [disabled]="!commentText().trim()">
+        Submit
+      </button>
+    </div>
+    <div *ngIf="!isLoggedIn()" class="text-secondary small mt-4">
+      Please <a routerLink="/login">login</a> to post a comment.
+    </div>
+  </div>
+</div> -->
+
+<!-- Sidebar Modal/Slider -->
+<!-- <div
+  class="comment-slider"
+  [class.open]="showSidebar()">
+  <div class="comment-header d-flex align-items-center justify-content-between px-4 pt-4 pb-2">
+    <h4>Comment ({{ comments().length }})</h4>
+    <button class="btn btn-link fs-3" (click)="closeSidebar()" aria-label="Close">&times;</button>
+  </div>
+  <div class="d-flex align-items-center px-4 mb-2">
+    <div class="avatar-circle me-2">A</div>
+    <input
+      class="form-control me-2"
+      placeholder="Write a comment..."
+      [(ngModel)]="newCommentStr">
+    <button class="btn btn-secondary" (click)="addComment()" [disabled]="!newCommentStr.trim()">Post</button>
+  </div>
+  <hr> -->
+<!-- Sidebar/slider -->
+<div class="comment-slider" [class.open]="showSidebar()">
+  <div class="comment-header d-flex align-items-center justify-content-between px-4 pt-4 pb-2">
+    <h4>Comment ({{ comments().length }})</h4>
+    <button class="btn btn-link fs-3" (click)="closeSidebar()" aria-label="Close">&times;</button>
+  </div>
+
+  <div class="comment-body">
+    <!-- Composer row (matches screenshot format) -->
+    <div class="comment-composer px-4 pt-3 pb-2">
+      <div class="d-flex align-items-start gap-3">
+        <div class="avatar-circle">A</div>
+        <div class="flex-grow-1">
+          <textarea class="form-control composer-input" rows="2" placeholder="Write a comment..."
+            [(ngModel)]="newCommentStr">
+          </textarea>
+
+          <div class="d-flex justify-content-between align-items-center mt-2">
+            <!-- Left: attachment icons -->
+            <div class="d-flex align-items-center gap-3">
+              <!-- Plus / emoji / other -->
+              <button class="btn btn-link p-0 text-muted" type="button" (click)="addEmojiOrPlus()">
+                <i class="bi bi-plus-lg"></i>
+              </button>
+
+              <!-- Image upload -->
+              <label class="btn btn-link p-0 text-muted mb-0" title="Add image">
+                <i class="bi bi-image"></i>
+                <input type="file" accept="image/*" hidden (change)="attachImage($event)">
+              </label>
+
+              <!-- File upload -->
+              <label class="btn btn-link p-0 text-muted mb-0" title="Add attachment">
+                <i class="bi bi-paperclip"></i>
+                <input type="file" hidden (change)="attachFile($event)">
+              </label>
+            </div>
+
+            <!-- Right: Cancel / Post -->
+            <div class="d-flex gap-2">
+              <button class="btn btn-light btn-sm" type="button" (click)="resetComposer()">Cancel</button>
+              <button class="btn btn-dark btn-sm" type="button" (click)="addComment()"
+                [disabled]="!newCommentStr.trim() && !hasAttachment()">
+                Post
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="mt-0 mb-2">
+
+    <!-- Sort dropdown -->
+    <!-- <div class="px-4 mb-2">
+      <button class="btn btn-link p-0 dropdown-toggle" type="button">
+        Most relevant
+      </button>
+    </div> -->
+    <div class="px-4 mb-2 dropdown">
+      <button class="btn btn-link p-0 dropdown-toggle" type="button" data-bs-toggle="dropdown">
+        {{ sortMode() === 'relevant' ? 'Most relevant'
+        : sortMode() === 'newest' ? 'Newest' : 'Oldest' }}
+      </button>
+      <ul class="dropdown-menu">
+        <li><button class="dropdown-item" (click)="sortMode.set('relevant')">Most relevant</button></li>
+        <li><button class="dropdown-item" (click)="sortMode.set('newest')">Newest</button></li>
+        <li><button class="dropdown-item" (click)="sortMode.set('oldest')">Oldest</button></li>
+      </ul>
+    </div>
+
+    <!-- Comments list (same as before) -->
+    <div class="px-4">
+      <div *ngFor="let comment of sortedComments() | slice:0:displayCount()" class="comment-block p-3 mb-3 rounded bg-light">
+        <div class="d-flex align-items-center gap-2 mb-1">
+          <span class="avatar-circle">{{ comment.user[0] }}</span>
+          <span class="fw-bold">{{ comment.user }}</span>
+          <span class="text-muted small">{{ comment.rawDate | date: 'yyyy-MM-dd HH:mm' }}</span>
+        </div>
+        <div class="mb-1">{{ comment.text }}</div>
+        <div class="d-flex gap-3 text-muted small">
+          <span>Like</span>
+          <span>Reply</span>
+          <span *ngIf="comment.likes > 0">{{ comment.likes }} Likes</span>
+        </div>
+
+        <div *ngFor="let reply of comment.replies" class="ms-4 mt-2 border-start ps-3">
+          <div class="d-flex align-items-center gap-2 mb-1">
+            <span class="avatar-circle">{{ reply.user[0] }}</span>
+            <span class="fw-bold">{{ reply.user }}</span>
+            <span class="text-muted small">{{ reply.time }}</span>
+          </div>
+          <div>{{ reply.text }}</div>
+        </div>
+
+        <div class="mt-2" *ngIf="comment.showReply">
+          <input class="form-control mb-1" placeholder="Write a reply..." #replyInput>
+          <button class="btn btn-secondary btn-sm" (click)="addReply(comment, replyInput.value)">Reply</button>
+        </div>
+        <button class="btn btn-link btn-sm" (click)="showReply(comment)">Reply</button>
+      </div>
+
+      <!-- <div class="text-center mb-3" *ngIf="comments().length > displayCount()">
+        <button class="btn btn-outline-secondary" (click)="showMore()">
+          Show more discussion ({{ comments().length - displayCount() }})
+        </button>
+      </div> -->
+      <div class="text-center mb-3" *ngIf="sortedComments().length > displayCount()">
+    <button class="btn btn-outline-secondary" (click)="showMore()">
+      Show more discussion ({{ sortedComments().length - displayCount() }})
+    </button>
+  </div>
+    </div>
+  </div>
+</div>
+
+<!-- Entry button in article page -->
+<button class="btn btn-light" (click)="openSidebar()" aria-label="Show comments">
+  <i class="bi bi-chat-dots"></i> Show Comments
+</button>

@@ -1,0 +1,47 @@
+<div class="container py-4">
+  <div class="row align-items-center mb-4">
+    <div class="col-md-6">
+      <input
+        type="search"
+        [value]="searchTerm()"
+        class="form-control"
+        placeholder="Search articles..."
+        (input)="searchTerm.set($any($event.target).value)">
+    </div>
+    <div class="col-md-3 mt-3 mt-md-0">
+      <select class="form-select"
+              [value]="sortOption()"
+              (change)="sortOption.set($any($event.target).value)">
+        <option value="latest">Latest</option>
+        <option value="popular">Most Popular</option>
+        <option value="editors-pick">Editor's Pick</option>
+      </select>
+    </div>
+  </div>
+
+  <app-featured-carousel></app-featured-carousel>
+
+  <div class="row">
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4"
+         *ngFor="let article of paginatedArticles()">
+      <app-article-card [article]="article"></app-article-card>
+    </div>
+    <div class="text-muted" *ngIf="paginatedArticles().length === 0">
+      No articles found.
+    </div>
+  </div>
+
+  <nav *ngIf="totalPages() > 1" class="d-flex justify-content-center">
+    <ul class="pagination mt-4">
+      <li class="page-item" [class.disabled]="currentPage() === 1">
+        <button class="page-link" (click)="prevPage()" [disabled]="currentPage() === 1">Previous</button>
+      </li>
+      <li class="page-item disabled">
+        <span class="page-link">Page {{ currentPage() }} of {{ totalPages() }}</span>
+      </li>
+      <li class="page-item" [class.disabled]="currentPage() === totalPages()">
+        <button class="page-link" (click)="nextPage()" [disabled]="currentPage() === totalPages()">Next</button>
+      </li>
+    </ul>
+  </nav>
+</div>

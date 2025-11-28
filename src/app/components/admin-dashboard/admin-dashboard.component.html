@@ -1,0 +1,67 @@
+<div class="container py-4">
+  <h3 class="fw-semibold mb-4">Admin Dashboard</h3>
+  <div class="row mb-4 g-3">
+    <div class="col-sm-3">
+      <div class="bg-light p-3 rounded border text-center">
+        <div class="fw-bold text-secondary">Users</div>
+        <div class="display-6 text-success">{{ stats.userCount }}</div>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="bg-light p-3 rounded border text-center">
+        <div class="fw-bold text-secondary">Articles</div>
+        <div class="display-6 text-primary">{{ stats.articleCount }}</div>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="bg-light p-3 rounded border text-center">
+        <div class="fw-bold text-secondary">Comments</div>
+        <div class="display-6 text-info">{{ stats.commentCount }}</div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <h5 class="fw-semibold mb-2">All Users</h5>
+  <table class="table table-bordered table-striped table-sm mb-5">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Articles</th>
+        <th>Joined</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let u of users">
+        <td>{{ u.name }}</td>
+        <td>{{ u.email }}</td>
+        <td>{{ u.articleCount ?? 0 }}</td>
+        <td>{{ u.joined | date:'mediumDate' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h5 class="fw-semibold mb-2">All Articles</h5>
+  <table class="table table-bordered table-striped table-sm">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Published</th>
+        <th>Views</th>
+        <th>Likes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let a of articles">
+        <td><a [routerLink]="['/article', a.id]">{{ a.title }}</a></td>
+        <td>{{ a.authorName }}</td>
+        <td>{{ a.publishedAt | date:'mediumDate' }}</td>
+        <td>{{ a.views }}</td>
+        <td>{{ a.likes }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

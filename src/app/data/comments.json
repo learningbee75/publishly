@@ -1,0 +1,47 @@
+[
+  {
+    "id": 201,
+    "articleId": 1,
+    "userId": 2,
+    "userName": "Max Jansen",
+    "userAvatar": "https://randomuser.me/api/portraits/men/40.jpg",
+    "text": "Great perspective on Angular's roadmap!",
+    "createdAt": "2025-11-05T14:11:00Z",
+    "likes": 3,
+    "replies": [
+      {
+        "id": 202,
+        "articleId": 1,
+        "userId": 1,
+        "userName": "Ava Patel",
+        "userAvatar": "https://randomuser.me/api/portraits/women/20.jpg",
+        "text": "Thanks Max!",
+        "createdAt": "2025-11-05T16:15:00Z",
+        "likes": 1,
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 203,
+    "articleId": 1,
+    "userId": 3,
+    "userName": "Sara Li",
+    "userAvatar": "https://randomuser.me/api/portraits/women/44.jpg",
+    "text": "I'm excited for signals to become standard.",
+    "createdAt": "2025-11-05T15:23:00Z",
+    "likes": 2,
+    "replies": []
+  },
+  {
+    "id": 204,
+    "articleId": 2,
+    "userId": 1,
+    "userName": "Ava Patel",
+    "userAvatar": "https://randomuser.me/api/portraits/women/20.jpg",
+    "text": "This RxJS guide is super clear. Bookmarked!",
+    "createdAt": "2025-11-06T19:12:00Z",
+    "likes": 2,
+    "replies": []
+  }
+]

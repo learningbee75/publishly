@@ -1,0 +1,39 @@
+[
+  {
+    "id": 1,
+    "name": "Aarav Mehta",
+    "email": "aarav.mehta@example.com",
+    "password": "aarav12345",
+    "avatar": "https://img.freepik.com/free-vector/indian-man-avatar-illustration_23-2148460888.jpg",
+    "bio": "Frontend engineer from Bengaluru, loves Angular and chai.",
+    "joined": "2021-10-14T17:30:00Z"
+  },
+  {
+    "id": 2,
+    "name": "Diya Iyer",
+    "email": "diya.iyer@example.com",
+    "password": "diya12345",
+    "avatar": "https://img.freepik.com/free-vector/indian-woman-avatar-illustration_23-2148460890.jpg",
+    "bio": "Product designer from Chennai, focuses on clean UI systems.",
+    "joined": "2023-01-23T09:05:00Z"
+  },
+  {
+    "id": 3,
+    "name": "Rohan Kulkarni",
+    "email": "rohan.kulkarni@example.com",
+    "password": "rohan12345",
+    "avatar": "https://img.freepik.com/free-vector/flat-design-indian-man-avatar_23-2149481142.jpg",
+    "bio": "Full‑stack developer from Pune, enjoys TypeScript and system design.",
+    "joined": "2022-06-02T15:48:00Z"
+  },
+  {
+    "id": 99,
+    "name": "Site Admin",
+    "email": "admin@example.com",
+    "password": "admin123",
+    "avatar": "https://img.freepik.com/free-vector/indian-man-avatar-illustration_23-2148460888.jpg",
+    "bio": "Platform administrator.",
+    "joined": "2020-01-01T00:00:00Z",
+    "isAdmin": true
+  }
+]

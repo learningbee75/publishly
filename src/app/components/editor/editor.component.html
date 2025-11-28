@@ -1,0 +1,128 @@
+<div class="editor-page">
+  <!-- Top bar -->
+  <header class="editor-top d-flex justify-content-between align-items-center">
+  <div class="d-flex align-items-center gap-2">
+    <button class="btn btn-light rounded-circle border" aria-label="Back">
+      <i class="bi bi-arrow-left"></i> back
+    </button>
+    <span class="text-muted small">
+      {{ currentDraftId() ? 'Editing draft #' + currentDraftId() : 'New Article' }}
+    </span>
+  </div>
+  <div class="d-flex align-items-center gap-2">
+   <button class="btn btn-outline-secondary btn-sm" type="button" (click)="saveDraft()">
+      {{ isSavingDraft() ? 'Saving…' : 'Save draft' }}
+    </button>
+    <button class="btn btn-outline-secondary btn-sm" type="button" (click)="openPreview()">Preview</button>
+    <button class="btn btn-primary btn-sm" type="button">Publish</button>
+  </div>
+</header>
+
+  <!-- Body -->
+  <main class="editor-body">
+    <section class="editor-main">
+      <!-- Label, title, category row -->
+      <div class="mb-4">
+        <div class="text-uppercase text-muted tiny-label mb-2">Announcement</div>
+        <input
+          class="editor-title form-control-plaintext fw-bold"
+          [(ngModel)]="title"
+          placeholder="My first article..." />
+
+        <div class="d-flex align-items-center mt-3 gap-2">
+          <select class="form-select form-select-sm w-auto" [(ngModel)]="category">
+            <option value="">Select categories</option>
+            <option value="Tech">Tech</option>
+            <option value="Productivity">Productivity</option>
+            <option value="Wellbeing">Wellbeing</option>
+          </select>
+          <button class="btn btn-outline-secondary btn-sm" type="button">Settings</button>
+        </div>
+      </div>
+
+      <!-- Rich text editor -->
+      <div class="mb-5">
+        <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
+        <ngx-editor
+          class="editor-box mt-1"
+          [editor]="editor"
+          [placeholder]="'Write your story...'"
+          [(ngModel)]="content">
+        </ngx-editor>
+      </div>
+
+      <!-- Media block -->
+      <div class="mb-5 text-center">
+        <div class="media-card">
+          <ng-container *ngIf="!coverImage; else mediaPreview">
+            <div class="media-placeholder d-flex flex-column align-items-center justify-content-center">
+              <i class="bi bi-card-image fs-2 text-muted mb-2"></i>
+              <button class="btn btn-outline-secondary btn-sm" type="button">
+                <label class="mb-0">
+                  Add image / video
+                  <input type="file" accept="image/*,video/*" hidden (change)="onCoverSelected($event)" />
+                </label>
+              </button>
+            </div>
+          </ng-container>
+          <ng-template #mediaPreview>
+            <img [src]="coverImage" class="img-fluid rounded" />
+            <div class="mt-2">
+              <button class="btn btn-outline-secondary btn-sm me-2" type="button">
+                <label class="mb-0">
+                  Change media
+                  <input type="file" accept="image/*,video/*" hidden (change)="onCoverSelected($event)" />
+                </label>
+              </button>
+              <button class="btn btn-link btn-sm text-danger" type="button" (click)="coverImage = null">
+                Remove
+              </button>
+            </div>
+          </ng-template>
+        </div>
+        <div class="small text-muted mt-1">Press Space to add picture.</div>
+      </div>
+
+      <!-- Schedule panel -->
+      <section class="schedule-card mb-5">
+        <div class="form-check form-switch mb-2">
+          <input class="form-check-input" type="checkbox"
+                 [checked]="scheduleEnabled()"
+                 (change)="scheduleEnabled.set($any($event.target).checked)" />
+          <label class="form-check-label">Schedule this post</label>
+        </div>
+        <div class="d-flex align-items-center gap-2" *ngIf="scheduleEnabled()">
+          <input
+            type="datetime-local"
+            class="form-control form-control-sm w-auto"
+            [ngModel]="scheduledAt()"
+            (ngModelChange)="scheduledAt.set($event)" />
+          <button class="btn btn-outline-secondary btn-sm"
+                  type="button"
+                  (click)="schedulePost()"
+                  [disabled]="!scheduledAt()">
+            Schedule
+          </button>
+        </div>
+      </section>
+    </section>
+     <aside class="drafts-sidebar">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <h6 class="fw-semibold mb-0">My drafts</h6>
+      <button class="btn btn-link btn-sm p-0" type="button" (click)="startNewDraft()">
+        + New
+      </button>
+    </div>
+
+    <div *ngFor="let d of userDrafts()" class="draft-item"
+         [class.active]="d.id === currentDraftId()"
+         (click)="loadDraft(d.id)">
+      <div class="draft-title text-truncate">{{ d.title || 'Untitled draft' }}</div>
+      <div class="draft-meta small text-muted">
+        {{ d.category || 'No category' }} • {{ d.updatedAt | date:'short' }}
+      </div>
+    </div>
+  </aside>
+  </main>
+</div>
+<app-preview-modal></app-preview-modal>

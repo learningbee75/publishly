@@ -1,0 +1,37 @@
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card p-4 mb-4 text-center shadow-sm">
+        <img [src]="profileUser()?.avatar || 'assets/avatar.svg'" class="rounded-circle mb-3" width="90" height="90" style="object-fit:cover;">
+        <h3 class="mb-0 fw-bold">{{ profileUser()?.name }}</h3>
+        <div class="mb-2 text-secondary">{{ profileUser()?.bio }}</div>
+        <div class="mb-2 small text-muted" *ngIf="profileUser()?.email" style="word-break:break-all;">
+          {{ profileUser()?.email }}
+        </div>
+        <div *ngIf="isOwnProfile()" class="small text-muted">
+          Member since: {{ profileUser()?.joined | date:'mediumDate' }}
+        </div>
+        <button *ngIf="isOwnProfile()" class="btn btn-sm btn-outline-primary mt-2">Edit Profile</button>
+      </div>
+      <div class="mb-4 ps-2">
+        <h5 class="fw-semibold mb-3">Articles by {{ profileUser()?.name }}</h5>
+        <div class="row">
+          <div class="col-md-6 col-lg-4 mb-3" *ngFor="let art of authoredArticles()">
+            <a [routerLink]="['/article', art.id]" class="text-decoration-none">
+              <div class="card h-100 shadow-sm">
+                <img [src]="art.thumbnail" class="card-img-top" style="height:110px;object-fit:cover;">
+                <div class="card-body pb-2">
+                  <div class="fw-semibold text-dark">{{ art.title }}</div>
+                  <div class="small text-muted">{{ art.publishedAt | date:'mediumDate' }}</div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div *ngIf="!authoredArticles().length" class="ps-2 text-muted">
+            No articles yet.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

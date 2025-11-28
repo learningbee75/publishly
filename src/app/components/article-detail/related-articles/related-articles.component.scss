@@ -1,0 +1,19 @@
+.card {
+  border-radius: 10px;
+  .list-group-item {
+    border: none;
+    border-bottom: 1px solid #efeeee;
+    &:last-child { border-bottom: none; }
+  }
+  img {
+    border-radius: 4px;
+    border: 1px solid #eee;
+  }
+  .card-header {
+    font-size: 1.02rem;
+    background: #f8fafd;
+    border-radius: 10px 10px 0 0;
+  }
+}
+
+

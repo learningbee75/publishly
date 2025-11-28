@@ -1,0 +1,9 @@
+<div class="card shadow-sm border-0 author-card h-100">
+  <div class="card-body text-center">
+    <img [src]="author.avatar || 'assets/avatar.svg'" class="rounded-circle mb-2" width="64" height="64" style="object-fit:cover;">
+    <h5 class="mb-1 fw-semibold">{{ author.name }}</h5>
+    <div class="mb-2 text-secondary small">{{ author.bio }}</div>
+    <div class="small text-muted mb-2">Articles: {{ author.articleCount }}</div>
+    <a [routerLink]="['/profile', author.id]" class="btn btn-outline-primary btn-sm">View Profile</a>
+  </div>
+</div>
