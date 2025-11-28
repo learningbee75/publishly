@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   searchTerm = signal('');
   sortOption = signal('latest');
   currentPage = signal(1);
-  articlesPerPage = 8;
+  articlesPerPage = 4;
 
   ngOnInit() {
     this.articleService.fetchArticles?.();

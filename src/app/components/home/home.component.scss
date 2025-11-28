@@ -7,3 +7,9 @@ input.form-control, select.form-select {
 .pagination .page-link {
   border-radius: 6px !important;
 }
+.pagination {
+  .page-link {
+    border-radius: 999px;
+    padding-inline: 1rem;
+  }
+}

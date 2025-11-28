@@ -3,14 +3,23 @@
   overflow: hidden;
   border: none;
   transition: box-shadow 0.2s;
-  &:hover { box-shadow: 0 4px 18px rgba(22,153,142,0.11); }
-}
-.card-title {
-  font-size: 1.13rem;
-  line-height: 1.3;
-  color: #185c6f !important;
-}
-.card-img-top {
-  border-radius: 13px 13px 0 0;
-  background: #f5fafb;
+
+  &:hover {
+    box-shadow: 0 4px 18px rgba(22,153,142,0.11);
+  }
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .title-wrap {
+    max-height: 3rem;
+    overflow: hidden;
+  }
+
+  .summary-wrap {
+    max-height: 4.5rem;
+    overflow: hidden;
+  }
 }

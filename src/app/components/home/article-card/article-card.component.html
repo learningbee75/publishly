@@ -1,13 +1,34 @@
-<a class="card shadow-sm article-card d-block h-100 text-decoration-none"
-   [routerLink]="['/article', article.id]">
-  <img [src]="article.thumbnail" class="card-img-top" alt="thumbnail for {{ article.title }}" style="height:155px;object-fit:cover;">
-  <div class="card-body pb-2">
-    <h5 class="card-title fw-bold mb-2 text-dark">{{ article.title }}</h5>
-    <div class="card-text text-secondary mb-2" style="font-size:0.98rem;">{{ article.summary }}</div>
-    <div class="d-flex align-items-center gap-2 mt-1">
-      <img src="assets/avatar.svg" class="rounded-circle" width="28" height="28" style="object-fit:cover;">
-      <span class="small text-muted">{{ article.authorName }}</span>
-      <span class="text-muted ms-auto" style="font-size:0.93rem;">{{ article.publishedAt | date:'mediumDate' }}</span>
+<a class="card shadow-sm article-card d-block h-100 text-decoration-none" [routerLink]="['/article', article.id]">
+
+  <img [src]="article.thumbnail" class="card-img-top" alt="thumbnail for {{ article.title }}"
+    style="height:155px;object-fit:cover;">
+
+  <div class="card-body">
+    <div class="title-wrap mb-1">
+      <h5 class="card-title fw-semibold text-dark small">
+        {{ article.title }}
+      </h5>
     </div>
+
+    <div class="summary-wrap mb-2 text-secondary small">
+      {{ article.summary }}
+    </div>
+
+    <div class="d-flex align-items-center gap-2 mt-1">
+      <ng-container *ngIf="author()?.avatar; else defaultAvatar">
+        <img [src]="author()!.avatar" class="rounded-circle" width="28" height="28" style="object-fit:cover;"
+          [alt]="author()?.name">
+      </ng-container>
+      <ng-template #defaultAvatar>
+        <img src="assets/avatar.jpg" class="rounded-circle" width="28" height="28" style="object-fit:cover;"
+          alt="Default avatar">
+      </ng-template>
+
+      <span class="small text-muted">{{ author()?.name || 'Anonymous' }}</span>
+      <span class="small text-muted ms-auto">
+        {{ article.publishedAt | date:'mediumDate' }}
+      </span>
+    </div>
+
   </div>
 </a>

@@ -3,16 +3,20 @@
   overflow: hidden;
   background: #f7fafb;
   margin-bottom: 1rem;
+
   .carousel-item img {
     border-radius: 14px;
     background: #eaeaea;
   }
+
   .carousel-indicators [data-bs-target] {
     background-color: #16998e;
   }
+
   .carousel-indicators .active {
     background-color: #12616a;
   }
+
   .carousel-caption {
     left: 4%;
     right: 4%;

@@ -62,7 +62,7 @@ export class ArticleService {
   dummyArticles = this._dummyArticles.asReadonly();
 
   getReadersChoice() {
-    return this._dummyArticles().slice(0, 4); // Top 4, customize as needed
+    return this._articles().slice(0, 5); // Top 4, customize as needed
   }
 
   // Optional: Simulate async fetch of articles (could be HTTP call)
@@ -104,6 +104,6 @@ export class ArticleService {
 
   searchArticles(title: string) {
     const lower = title.toLowerCase();
-    return this._dummyArticles().filter(a => a.title.toLowerCase().includes(lower));
+    return this._articles().filter(a => a.title.toLowerCase().includes(lower));
   }
 }
