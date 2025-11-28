@@ -6,11 +6,9 @@ import { AuthService } from '../services/auth.service';
 export class AuthGuard {
   constructor(private auth: AuthService, private router: Router) {}
 
-  canActivate: CanActivateFn = () => {
-    // Prefer Firebase user state first:
-    // if (this.auth.isLoggedInFirebase()) return true;
+  canActivate: CanActivateFn = () => {;
 
-    // Fallback to localStorage signal:
+    // localStorage signal:
     if (this.auth.isLoggedInLocal()) return true;
 
     this.router.navigate(['/login']);

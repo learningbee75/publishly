@@ -26,7 +26,7 @@ export interface Draft {
   content: string;
   coverImage: string | null;
   scheduledAt: string | null;
-  updatedAt: string;   // ISO string
+  updatedAt: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -105,61 +105,38 @@ export class PostService {
     return this._drafts().find(d => d.id === id);
   }
 
-  // upsertDraft(draft: Omit<Draft, 'id' | 'updatedAt' | 'userId'> & { id?: number }): Draft {
-  //   const now = new Date().toISOString();
-  //   if (draft.id) {
-  //     this._drafts.update(list =>
-  //       list.map(d => d.id === draft.id ? { ...d, ...draft, updatedAt: now } : d)
-  //     );
-  //     return this.getDraftById(draft.id)!;
-  //   } else {
-  //     const newId = Math.max(0, ...this._drafts().map(d => d.id)) + 1;
-  //     const newDraft: Draft = {
-  //       id: newId,
-  //       userId: this.currentUserId,
-  //       updatedAt: now,
-  //       ...draft
-  //     };
-  //     this._drafts.update(list => [newDraft, ...list]);
-  //     return newDraft;
-  //   }
-  // }
+  upsertDraft(draft: Omit<Draft, 'id' | 'updatedAt' | 'userId'> & { id?: number }): Draft {
+    const now = new Date().toISOString();
+    if (draft.id != null) {
+      // update existing
+      let updated: Draft | undefined;
+      this._drafts.update(list =>
+        list.map(d => {
+          if (d.id === draft.id) {
+            updated = {
+              ...d,
+              ...draft,
+              id: d.id,
+              userId: d.userId,
+              updatedAt: now
+            };
+            return updated!;
+          }
+          return d;
+        })
+      );
+      if (updated) return updated;
+    }
 
-  upsertDraft(
-  draft: Omit<Draft, 'id' | 'updatedAt' | 'userId'> & { id?: number }
-): Draft {
-  const now = new Date().toISOString();
-
-  if (draft.id != null) {
-    // update existing
-    let updated: Draft | undefined;
-    this._drafts.update(list =>
-      list.map(d => {
-        if (d.id === draft.id) {
-          updated = {
-            ...d,
-            ...draft,
-            id: d.id,          // keep required id
-            userId: d.userId,
-            updatedAt: now
-          };
-          return updated!;
-        }
-        return d;
-      })
-    );
-    if (updated) return updated;
+    // create new draft
+    const newId = Math.max(0, ...this._drafts().map(d => d.id)) + 1;
+    const newDraft: Draft = {
+      id: newId,
+      userId: this.currentUserId,
+      updatedAt: now,
+      ...draft
+    };
+    this._drafts.update(list => [newDraft, ...list]);
+    return newDraft;
   }
-
-  // create new draft
-  const newId = Math.max(0, ...this._drafts().map(d => d.id)) + 1;
-  const newDraft: Draft = {
-    id: newId,
-    userId: this.currentUserId,
-    updatedAt: now,
-    ...draft
-  };
-  this._drafts.update(list => [newDraft, ...list]);
-  return newDraft;
-}
 }

@@ -56,7 +56,7 @@
     "featured": true,
     "views": 52223,
     "likes": 11112,
-    "commentCount": 156
+    "commentCount": 12
   },
   {
     "id": 4,
@@ -76,7 +76,7 @@
     "featured": true,
     "views": 18976,
     "likes": 2345,
-    "commentCount": 89
+    "commentCount": 5
   },
   {
     "id": 5,
@@ -96,7 +96,7 @@
     "featured": true,
     "views": 21543,
     "likes": 1567,
-    "commentCount": 89
+    "commentCount": 3
   },
   {
     "id": 6,
@@ -116,6 +116,6 @@
     "featured": false,
     "views": 9876,
     "likes": 567,
-    "commentCount": 23
+    "commentCount": 6
   }
 ]

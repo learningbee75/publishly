@@ -1,4 +1,3 @@
-// src/app/services/auth.service.ts
 import { Injectable, inject, signal, computed } from '@angular/core';
 import { Router } from '@angular/router';
 import { Auth, authState, signInWithEmailAndPassword, createUserWithEmailAndPassword,
@@ -31,7 +30,6 @@ export class AuthService {
   users: AppUser[] = usersJson;
 
   constructor() {
-    // listen to Firebase auth state
     authState(this.auth).subscribe((fbUser) => {
       if (fbUser) {
         const mapped = this.mapFirebaseUser(fbUser);
@@ -42,7 +40,7 @@ export class AuthService {
     });
 
     // hydrate from localStorage on hard refresh
-    this.restoreFromStorage();
+    // this.restoreFromStorage();
   }
 
   // ------------ EMAIL / PASSWORD -----------------\
@@ -132,7 +130,7 @@ export class AuthService {
   }
 
   private restoreFromStorage(): void {
-    if (this._currentUser()) return; // authState will override anyway
+    if (this._currentUser()) return;
     const raw = localStorage.getItem('publishly_auth_user');
     if (!raw) return;
     try {
@@ -146,7 +144,6 @@ export class AuthService {
   }
 
   isLoggedInLocal(): boolean {
-    // Optionally, use localStorage value (set this on login)
     return Boolean(localStorage.getItem('publishly_auth_user'));
   }
 }

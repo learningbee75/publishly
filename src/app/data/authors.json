@@ -1,29 +1,62 @@
 [
   {
     "id": 1,
+    "name": "Aarav Mehta",
+    "email": "aarav.mehta@example.com",
+    "avatar": "https://img.freepik.com/free-vector/indian-man-avatar-illustration_23-2148460888.jpg",
+    "bio": "Frontend engineer from Bengaluru, loves Angular and chai.",
+    "joined": "2021-10-14T17:30:00Z",
+    "articleCount": 10,
+    "tags": ["Angular", "Frontend", "Open Source"]
+  },
+  {
+    "id": 2,
+    "name": "Diya Iyer",
+    "email": "diya.iyer@example.com",
+    "avatar": "https://img.freepik.com/free-vector/indian-woman-avatar-illustration_23-2148460890.jpg",
+    "bio": "Product designer from Chennai, focuses on clean UI systems.",
+    "joined": "2023-01-23T09:05:00Z",
+    "articleCount": 98,
+    "tags": ["Product owner", "Design", "Open Source"]
+  },
+  {
+    "id": 3,
+    "name": "Rohan Kulkarni",
+    "email": "rohan.kulkarni@example.com",
+    "avatar": "https://img.freepik.com/free-vector/flat-design-indian-man-avatar_23-2149481142.jpg",
+    "bio": "Full‑stack developer from Pune, enjoys TypeScript and system design.",
+    "joined": "2022-06-02T15:48:00Z",
+    "articleCount": 34,
+    "tags": ["Developer", "Full stack"]
+  },
+  {
+    "id": 4,
     "name": "Ava Patel",
     "email": "ava.patel@example.com",
     "bio": "Angular GDE, open-source advocate, and tech writer.",
     "avatar": "https://randomuser.me/api/portraits/women/20.jpg",
     "joined": "2021-10-14T17:30:00Z",
-    "articleCount": 1
+    "articleCount": 71,
+    "tags": ["Angular", "Frontend", "Open Source"]
   },
   {
-    "id": 2,
+    "id": 5,
     "name": "Max Jansen",
     "email": "max.jansen@example.com",
     "bio": "Frontend architect, RxJS contributor.",
     "avatar": "https://randomuser.me/api/portraits/men/40.jpg",
     "joined": "2023-01-23T09:05:00Z",
-    "articleCount": 1
+    "articleCount": 200,
+    "tags": ["RxJS", "Cloud", "Architecture"]
   },
   {
-    "id": 3,
+    "id": 6,
     "name": "Sara Li",
     "email": "sara.li@example.com",
     "bio": "Full-stack dev with a love for TypeScript.",
     "avatar": "https://randomuser.me/api/portraits/women/44.jpg",
     "joined": "2022-06-02T15:48:00Z",
-    "articleCount": 1
+    "articleCount": 19,
+    "tags": ["Fullstack", "TypeScript", "Happiness"]
   }
 ]

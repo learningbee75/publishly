@@ -18,9 +18,10 @@ export class ArticleDetailComponent implements OnInit {
   private router = inject(Router)
   private articleService = inject(ArticleService);
   private authorService = inject(AuthorService);
-@ViewChild('commentsSidebar') commentsSidebar!: CommentsComponent;
+  @ViewChild('commentsSidebar') commentsSidebar!: CommentsComponent;
   articleId = signal<number>(0);
   article = signal<any>(null);
+  private bookmarked = signal<boolean>(false);
 
   ngOnInit() {
     this.route.paramMap.subscribe(map => {
@@ -28,6 +29,19 @@ export class ArticleDetailComponent implements OnInit {
       this.articleId.set(id);
       this.article.set(this.articleService.getArticleById(id));
       this.articleService.incrementViews(id);
+    });
+
+    this.route.paramMap.subscribe(map => {
+      const id = +(map.get('id') ?? 0);
+      this.articleId.set(id);
+      const art = this.articleService.getArticleById(id);
+      this.article.set(art);
+      if (art) {
+        this.articleService.incrementViews(id);
+        const saved = localStorage.getItem('bookmarkedArticles') ?? '[]';
+        const ids = JSON.parse(saved) as number[];
+        this.bookmarked.set(ids.includes(id));
+      }
     });
   }
 
@@ -37,10 +51,57 @@ export class ArticleDetailComponent implements OnInit {
 
   goBack() {
     this.router.navigate(['/'])
+  }
 
-}
-
- showComments() {
+  showComments() {
     this.commentsSidebar.openSidebar();
+  }
+
+  isBookmarked(): boolean {
+    return this.bookmarked();
+  }
+
+  toggleBookmark(): void {
+    const id = this.articleId();
+    const saved = localStorage.getItem('bookmarkedArticles') ?? '[]';
+    let ids = JSON.parse(saved) as number[];
+
+    if (this.bookmarked()) {
+      ids = ids.filter(x => x !== id);
+      this.bookmarked.set(false);
+    } else {
+      if (!ids.includes(id)) ids.push(id);
+      this.bookmarked.set(true);
+    }
+
+    localStorage.setItem('bookmarkedArticles', JSON.stringify(ids));
+  }
+
+  async shareArticle(): Promise<void> {
+    const url = window.location.href;
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: this.article()?.title,
+          text: this.article()?.summary || '',
+          url
+        });
+      } catch {
+        // user canceled share
+      }
+    } else {
+      await navigator.clipboard.writeText(url);
+      alert('Link copied to clipboard.');
+    }
+  }
+
+  async copyLink(): Promise<void> {
+    const url = window.location.href;
+    await navigator.clipboard.writeText(url);
+    alert('Link copied to clipboard.');
+  }
+
+  reportArticle(): void {
+    alert('Thanks for your feedback. This article will be reviewed.');
   }
 }

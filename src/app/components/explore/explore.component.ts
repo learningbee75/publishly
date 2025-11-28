@@ -24,40 +24,37 @@ export class ExploreComponent {
   filteredArticles = signal<DummyArticle[]>(this.articleService.getReadersChoice());
   trendingTags = signal(['Everything Explained', 'Teen Reads', 'Family Therapy']);
 
-  // readersChoice = signal(this.articleService.getReadersChoice());
-  // risingAuthors = signal(this.authorService.getRisingAuthors());
+  cardsStartIndex = signal(0);
+  cardsPerPage = 4;
 
-  cardsStartIndex = signal(0);  // first visible index
-cardsPerPage = 4;            // how many cards are visible at once
+  readersArticles = computed(() => this.filteredArticles());
 
-readersArticles = computed(() => this.filteredArticles()); // or your existing source
+  readersPaginated = computed(() => {
+    const all = this.readersArticles();
+    const start = this.cardsStartIndex();
+    const end = start + this.cardsPerPage;
+    return all.slice(start, end);
+  });
 
-readersPaginated = computed(() => {
-  const all = this.readersArticles();
-  const start = this.cardsStartIndex();
-  const end = start + this.cardsPerPage;
-  return all.slice(start, end);
-});
+  canSlidePrev = computed(() => this.cardsStartIndex() > 0);
 
-canSlidePrev = computed(() => this.cardsStartIndex() > 0);
+  canSlideNext = computed(() => {
+    const allLength = this.readersArticles().length;
+    return this.cardsStartIndex() + this.cardsPerPage < allLength;
+  });
 
-canSlideNext = computed(() => {
-  const allLength = this.readersArticles().length;
-  return this.cardsStartIndex() + this.cardsPerPage < allLength;
-});
+  slidePrev() {
+    if (!this.canSlidePrev()) return;
+    this.cardsStartIndex.update(i => i - 1);
+  }
 
-slidePrev() {
-  if (!this.canSlidePrev()) return;
-  this.cardsStartIndex.update(i => i - 1);
-}
+  slideNext() {
+    if (!this.canSlideNext()) return;
+    this.cardsStartIndex.update(i => i + 1);
+  }
 
-slideNext() {
-  if (!this.canSlideNext()) return;
-  this.cardsStartIndex.update(i => i + 1);
-}
-
-onBack() {
-    this.router.navigate(['/']); // or history.back();
+  onBack() {
+    this.router.navigate(['/']);
   }
 
   searchAuthors() {
@@ -73,7 +70,7 @@ onBack() {
     } else {
       this.filteredArticles.set(
         search
-          ? this.articleService.searchArticles(search) // Add method as needed
+          ? this.articleService.searchArticles(search)
           : this.articleService.getReadersChoice()
       );
     }

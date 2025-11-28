@@ -1,32 +1,43 @@
 <div class="editor-page">
-  <!-- Top bar -->
-  <header class="editor-top d-flex justify-content-between align-items-center">
-  <div class="d-flex align-items-center gap-2">
-    <button class="btn btn-light rounded-circle border" aria-label="Back">
-      <i class="bi bi-arrow-left"></i> back
-    </button>
-    <span class="text-muted small">
-      {{ currentDraftId() ? 'Editing draft #' + currentDraftId() : 'New Article' }}
-    </span>
-  </div>
-  <div class="d-flex align-items-center gap-2">
-   <button class="btn btn-outline-secondary btn-sm" type="button" (click)="saveDraft()">
-      {{ isSavingDraft() ? 'Saving…' : 'Save draft' }}
-    </button>
-    <button class="btn btn-outline-secondary btn-sm" type="button" (click)="openPreview()">Preview</button>
-    <button class="btn btn-primary btn-sm" type="button">Publish</button>
-  </div>
-</header>
 
-  <!-- Body -->
+  <header class="editor-top d-flex justify-content-between align-items-center mb-3">
+
+    <div class="d-flex align-items-center gap-3">
+      <button type="button"
+        class="btn btn-light rounded-circle border d-inline-flex align-items-center justify-content-center"
+        aria-label="Back" (click)="goBack()" style="width:36px;height:36px;">
+        <i class="bi bi-arrow-left"></i>
+      </button>
+
+      <div class="d-flex flex-column">
+        <span class="fw-semibold">
+          {{ currentDraftId() ? 'Editing draft' : 'New article' }}
+        </span>
+        <span class="text-muted small">
+          {{ currentDraftId() ? ('Draft #' + currentDraftId()) : 'Start writing your story' }}
+        </span>
+      </div>
+    </div>
+
+    <div class="d-flex align-items-center gap-2">
+      <button type="button" class="btn btn-outline-secondary btn-sm" (click)="newArticle()">New Articel</button>
+      <button type="button" class="btn btn-outline-secondary btn-sm" (click)="saveDraft()">
+        <span *ngIf="!isSavingDraft(); else savingTpl">Save draft</span>
+        <ng-template #savingTpl>Saving…</ng-template>
+      </button>
+      <button type="button" class="btn btn-outline-secondary btn-sm" (click)="openPreview()">Preview</button>
+      <button type="button" class="btn btn-primary btn-sm" (click)="publishArticle()">Publish</button>
+    </div>
+  </header>
+
+
+
   <main class="editor-body">
     <section class="editor-main">
-      <!-- Label, title, category row -->
+
       <div class="mb-4">
         <div class="text-uppercase text-muted tiny-label mb-2">Announcement</div>
-        <input
-          class="editor-title form-control-plaintext fw-bold"
-          [(ngModel)]="title"
+        <input class="editor-title form-control-plaintext fw-bold" [(ngModel)]="title"
           placeholder="My first article..." />
 
         <div class="d-flex align-items-center mt-3 gap-2">
@@ -40,18 +51,15 @@
         </div>
       </div>
 
-      <!-- Rich text editor -->
+
       <div class="mb-5">
         <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
-        <ngx-editor
-          class="editor-box mt-1"
-          [editor]="editor"
-          [placeholder]="'Write your story...'"
+        <ngx-editor class="editor-box mt-1" [editor]="editor" [placeholder]="'Write your story...'"
           [(ngModel)]="content">
         </ngx-editor>
       </div>
 
-      <!-- Media block -->
+
       <div class="mb-5 text-center">
         <div class="media-card">
           <ng-container *ngIf="!coverImage; else mediaPreview">
@@ -83,46 +91,39 @@
         <div class="small text-muted mt-1">Press Space to add picture.</div>
       </div>
 
-      <!-- Schedule panel -->
+
       <section class="schedule-card mb-5">
         <div class="form-check form-switch mb-2">
-          <input class="form-check-input" type="checkbox"
-                 [checked]="scheduleEnabled()"
-                 (change)="scheduleEnabled.set($any($event.target).checked)" />
+          <input class="form-check-input" type="checkbox" [checked]="scheduleEnabled()"
+            (change)="scheduleEnabled.set($any($event.target).checked)" />
           <label class="form-check-label">Schedule this post</label>
         </div>
         <div class="d-flex align-items-center gap-2" *ngIf="scheduleEnabled()">
-          <input
-            type="datetime-local"
-            class="form-control form-control-sm w-auto"
-            [ngModel]="scheduledAt()"
+          <input type="datetime-local" class="form-control form-control-sm w-auto" [ngModel]="scheduledAt()"
             (ngModelChange)="scheduledAt.set($event)" />
-          <button class="btn btn-outline-secondary btn-sm"
-                  type="button"
-                  (click)="schedulePost()"
-                  [disabled]="!scheduledAt()">
+          <button class="btn btn-outline-secondary btn-sm" type="button" (click)="schedulePost()"
+            [disabled]="!scheduledAt()">
             Schedule
           </button>
         </div>
       </section>
     </section>
-     <aside class="drafts-sidebar">
-    <div class="d-flex justify-content-between align-items-center mb-2">
-      <h6 class="fw-semibold mb-0">My drafts</h6>
-      <button class="btn btn-link btn-sm p-0" type="button" (click)="startNewDraft()">
-        + New
-      </button>
-    </div>
-
-    <div *ngFor="let d of userDrafts()" class="draft-item"
-         [class.active]="d.id === currentDraftId()"
-         (click)="loadDraft(d.id)">
-      <div class="draft-title text-truncate">{{ d.title || 'Untitled draft' }}</div>
-      <div class="draft-meta small text-muted">
-        {{ d.category || 'No category' }} • {{ d.updatedAt | date:'short' }}
+    <aside class="drafts-sidebar">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <h6 class="fw-semibold mb-0">My drafts</h6>
+        <button class="btn btn-link btn-sm p-0" type="button" (click)="startNewDraft()">
+          + New
+        </button>
       </div>
-    </div>
-  </aside>
+
+      <div *ngFor="let d of userDrafts()" class="draft-item" [class.active]="d.id === currentDraftId()"
+        (click)="loadDraft(d.id)">
+        <div class="draft-title text-truncate">{{ d.title || 'Untitled draft' }}</div>
+        <div class="draft-meta small text-muted">
+          {{ d.category || 'No category' }} • {{ d.updatedAt | date:'short' }}
+        </div>
+      </div>
+    </aside>
   </main>
 </div>
 <app-preview-modal></app-preview-modal>

@@ -1,47 +1,162 @@
 [
   {
-    "id": 201,
-    "articleId": 1,
-    "userId": 2,
-    "userName": "Max Jansen",
-    "userAvatar": "https://randomuser.me/api/portraits/men/40.jpg",
-    "text": "Great perspective on Angular's roadmap!",
-    "createdAt": "2025-11-05T14:11:00Z",
-    "likes": 3,
-    "replies": [
+    "articleId": 4,
+    "comments": [
       {
-        "id": 202,
-        "articleId": 1,
-        "userId": 1,
-        "userName": "Ava Patel",
-        "userAvatar": "https://randomuser.me/api/portraits/women/20.jpg",
-        "text": "Thanks Max!",
-        "createdAt": "2025-11-05T16:15:00Z",
-        "likes": 1,
+        "id": 1,
+        "userName": "Anna",
+        "time": "12:03 PM",
+        "createdAt": "2024-11-27T12:03:00",
+        "text": "Loved the way the Angular Signals API was explained in this article! Does anyone have tips for large-scale migration?",
+        "likes": 2,
+        "replies": []
+      },
+      {
+        "id": 2,
+        "userName": "John",
+        "time": "08:10 AM",
+        "createdAt": "2025-01-12T08:10:00",
+        "text": "I'm using signals in a production dashboard and the performance boost is real. Anna: we refactored gradually, section by section.",
+        "likes": 12,
+        "replies": [
+          {
+            "id": 6,
+            "userName": "Benjamin Foster",
+            "time": "08:20 AM",
+            "createdAt": "2025-01-12T08:20:00",
+            "text": "John—did you run into difficulties with computed state when using RxJS interop?"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "userName": "Lisa",
+        "time": "10:50 AM",
+        "createdAt": "2025-06-01T10:50:00",
+        "text": "Our team switched to signals for our new project and onboarding was super easy. Documentation has improved a lot.",
+        "likes": 0,
         "replies": []
       }
     ]
   },
   {
-    "id": 203,
-    "articleId": 1,
-    "userId": 3,
-    "userName": "Sara Li",
-    "userAvatar": "https://randomuser.me/api/portraits/women/44.jpg",
-    "text": "I'm excited for signals to become standard.",
-    "createdAt": "2025-11-05T15:23:00Z",
-    "likes": 2,
-    "replies": []
+    "articleId": 2,
+    "comments": [
+      {
+        "id": 4,
+        "userName": "Priya",
+        "time": "09:12 AM",
+        "createdAt": "2025-11-05T09:12:00",
+        "text": "I tried the five-senses grounding exercise at my desk yesterday and was amazed how much calmer I felt before my client call.",
+        "likes": 4,
+        "replies": [
+          {
+            "id": 5,
+            "userName": "Rohan",
+            "time": "09:18 AM",
+            "createdAt": "2025-11-05T09:18:00",
+            "text": "Priya, same here! I noticed my focus went way up after a one-minute breathing break."
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "userName": "Sara",
+        "time": "11:22 AM",
+        "createdAt": "2025-11-05T11:22:00",
+        "text": "Has anyone tried the STOP technique for stressful meetings? It helped me reset and listen better instead of reacting.",
+        "likes": 6,
+        "replies": []
+      },
+      {
+        "id": 8,
+        "userName": "Max",
+        "time": "01:45 PM",
+        "createdAt": "2025-11-05T13:45:00",
+        "text": "Short mindful walks at work are a game-changer—just 3 minutes and my energy comes right back.",
+        "likes": 2,
+        "replies": []
+      }
+    ]
   },
   {
-    "id": 204,
-    "articleId": 2,
-    "userId": 1,
-    "userName": "Ava Patel",
-    "userAvatar": "https://randomuser.me/api/portraits/women/20.jpg",
-    "text": "This RxJS guide is super clear. Bookmarked!",
-    "createdAt": "2025-11-06T19:12:00Z",
-    "likes": 2,
-    "replies": []
+    "articleId": 1,
+    "comments": [
+      {
+        "id": 9,
+        "userName": "Priya",
+        "time": "09:12 AM",
+        "createdAt": "2025-11-05T09:12:00",
+        "text": "The examples about AI code reviews were spot on. We've started using an AI assistant for pull requests and it really does catch edge cases earlier.",
+        "likes": 4,
+        "replies": [
+          {
+            "id": 10,
+            "userName": "Rohan",
+            "time": "09:18 AM",
+            "createdAt": "2025-11-05T09:18:00",
+            "text": "Priya, same here—our review time dropped a lot once we let AI handle low‑risk changes and focus only on critical PRs."
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "userName": "Sara",
+        "time": "11:22 AM",
+        "createdAt": "2025-11-05T11:22:00",
+        "text": "Curious how others are balancing AI-generated code with security reviews. Do you run additional static analysis when using AI tools in production projects?",
+        "likes": 6,
+        "replies": []
+      },
+      {
+        "id": 12,
+        "userName": "Max",
+        "time": "01:45 PM",
+        "createdAt": "2025-11-05T13:45:00",
+        "text": "The point about developers becoming AI orchestrators really resonated. Most of my day is now prompt design, reviewing AI output, and integrating it into our CI/CD pipeline.",
+        "likes": 2,
+        "replies": []
+      }
+    ]
+  },
+  {
+    "articleId": 3,
+    "comments": [
+      {
+        "id": 14,
+        "userName": "Priya",
+        "time": "09:12 AM",
+        "createdAt": "2025-11-07T09:12:00",
+        "text": "Enabling strict mode across our monorepo caught so many hidden null issues. The article’s tip about `noUncheckedIndexedAccess` was especially helpful.",
+        "likes": 7,
+        "replies": [
+          {
+            "id": 1,
+            "userName": "Rohan",
+            "time": "09:20 AM",
+            "createdAt": "2025-11-07T09:20:00",
+            "text": "Same here—we turned on `exactOptionalPropertyTypes` too and it forced us to clean up our API models in a good way."
+          }
+        ]
+      },
+      {
+        "id": 15,
+        "userName": "Sara",
+        "time": "11:05 AM",
+        "createdAt": "2025-11-07T11:05:00",
+        "text": "Really liked the section on utility types. Using `Pick` and `Omit` for DTOs made our REST layer so much easier to maintain.",
+        "likes": 5,
+        "replies": []
+      },
+      {
+        "id": 16,
+        "userName": "Max",
+        "time": "01:37 PM",
+        "createdAt": "2025-11-07T13:37:00",
+        "text": "We moved from enums to `as const` objects like the article suggested and it simplified our shared domain types across services.",
+        "likes": 3,
+        "replies": []
+      }
+    ]
   }
 ]

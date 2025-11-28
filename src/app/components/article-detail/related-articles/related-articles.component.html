@@ -1,21 +1,9 @@
-<!-- <h5 class="fw-semibold mb-2">Recommended to you</h5>
-    <div class="row mb-4">
-      <div class="col-md-4 col-6" *ngFor="let related of relatedArticles()">
-        <div class="card shadow-sm mb-3">
-          <img [src]="related.thumbnail || 'https://via.placeholder.com/120x80.png?text=Article'" class="card-img-top" style="height:100px;object-fit:cover;">
-          <div class="card-body pb-2">
-            <div class="fw-semibold small">{{ related.title }}</div>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
 
      <div class="d-flex justify-content-between align-items-center mb-2">
       <h5>Recommend to you</h5>
       <div>
-        <button class="btn btn-light btn-sm me-1 px-2" (click)="prev()" [disabled]="carouselIndex===0"><i class="bi bi-chevron-left"></i>left</button>
-        <button class="btn btn-light btn-sm px-2" (click)="next()" [disabled]="carouselIndex + visibleCount >= relatedArticles().length"><i class="bi bi-chevron-right"></i>right</button>
+        <button class="btn btn-light btn-sm me-1 px-2" (click)="prev()" [disabled]="carouselIndex===0"><i class="bi bi-chevron-left"></i></button>
+        <button class="btn btn-light btn-sm px-2" (click)="next()" [disabled]="carouselIndex + visibleCount >= relatedArticles().length"><i class="bi bi-chevron-right"></i></button>
       </div>
     </div>
     <div class="row">

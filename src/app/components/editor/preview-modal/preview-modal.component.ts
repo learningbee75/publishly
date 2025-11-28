@@ -14,7 +14,6 @@ export class PreviewModalComponent {
 
   open(previewObj: any) {
     this.preview = previewObj;
-    // Bootstrap Modal v5+ javascript API
     // @ts-ignore
     const modal = new window.bootstrap.Modal(this.modal.nativeElement);
     modal.show();

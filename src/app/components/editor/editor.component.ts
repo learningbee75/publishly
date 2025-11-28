@@ -4,32 +4,32 @@ import { FormsModule } from '@angular/forms';
 import { NgxEditorModule, Editor, Toolbar } from 'ngx-editor';
 import { PostService, EditorPostDraft, Draft } from '../../services/post.service';
 import { PreviewModalComponent } from './preview-modal/preview-modal.component';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-editor',
   standalone: true,
-  imports: [CommonModule, FormsModule, NgxEditorModule, PreviewModalComponent],
+  imports: [CommonModule, FormsModule, NgxEditorModule, PreviewModalComponent, RouterModule],
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.scss']
 })
 export class EditorComponent implements OnInit, OnDestroy {
   private postService = inject(PostService);
+  private router = inject(Router)
   @ViewChild(PreviewModalComponent) previewModal!: PreviewModalComponent;
 
   editor!: Editor;
 
-  // main fields for binding
   title = 'My first article...';
   category = '';
-  content = '';                        // HTML string from ngx-editor
+  content = '';
   coverImage: string | null = null;
 
-  // UI state with signals
   isSavingDraft = signal(false);
   isPublishing = signal(false);
   scheduleEnabled = signal(false);
   scheduledAt = signal<string | null>(null);
-currentDraftId = signal<number | null>(null);
+  currentDraftId = signal<number | null>(null);
   toolbar: Toolbar = [
     ['bold', 'italic', 'underline'],
     ['ordered_list', 'bullet_list'],
@@ -41,19 +41,8 @@ currentDraftId = signal<number | null>(null);
   userDrafts = computed(() => this.postService.getUserDrafts());
 
   ngOnInit() {
-    // this.editor = new Editor();
-
     this.editor = new Editor();
-    // this.loadDraft(this.currentDraftId());
-
-this.startNewDraft();    // if (draft) {
-    //   this.title = draft.title;
-    //   this.category = draft.category;
-    //   this.content = draft.content;
-    //   this.coverImage = draft.coverImage || null;
-    //   this.scheduledAt.set(draft.scheduledAt || null);
-    //   this.scheduleEnabled.set(!!draft.scheduledAt);
-    // }
+    this.startNewDraft();
   }
 
   ngOnDestroy() {
@@ -96,7 +85,7 @@ this.startNewDraft();    // if (draft) {
 
   saveDraft() {
     this.isSavingDraft.set(true);
-    const payloadId = this.currentDraftId(); 
+    const payloadId = this.currentDraftId();
     const saved: Draft = this.postService.upsertDraft({
       id: payloadId !== null ? payloadId : undefined,
       title: this.title,
@@ -138,14 +127,26 @@ this.startNewDraft();    // if (draft) {
     this.isPublishing.set(false);
   }
 
-   openPreview() {
+  openPreview() {
     const previewObj = {
       title: this.title,
       category: this.category,
-      content: this.content,              // HTML from ngx-editor
+      content: this.content,
       coverImage: this.coverImage,
       scheduledAt: this.scheduleEnabled() ? this.scheduledAt() : null
     };
     this.previewModal.open(previewObj);
+  }
+
+  goBack(): void {
+    this.router.navigate(['/']);
+  }
+
+  publishArticle(): void {
+   alert('Publish clicked');
+  }
+
+  newArticle(): void {
+    this.startNewDraft();
   }
 }

@@ -36,8 +36,6 @@ export class RelatedArticlesComponent implements OnInit {
     return this.showCarousel ?
     this.relatedArticles().slice(this.carouselIndex, this.carouselIndex + this.visibleCount) :
     this.relatedArticles();
-    // if (!this.showCarousel) return this.relatedArticles;
-    // return this.relatedArticles().slice(this.carouselIndex, this.carouselIndex + this.visibleCount);
   }
 
   next() {

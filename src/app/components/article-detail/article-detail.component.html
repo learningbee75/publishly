@@ -1,12 +1,12 @@
 <div class="container py-4">
   <div class="row justify-content-center">
     <div class="col-lg-8 mx-auto" style="max-width:720px">
-      <!-- Back Button -->
+
       <button class="btn btn-light rounded-circle border mb-3" (click)="goBack()" aria-label="Back"
         style="width:38px;height:38px;">
         <i class="bi bi-arrow-left"></i>
       </button>
-      <!-- Article Header -->
+
       <div class="d-flex align-items-center gap-2 mb-2">
         <span *ngFor="let tag of article()?.tags" class="badge bg-light text-dark me-2 px-2 py-1">{{ tag }}</span>
         <span class="small text-muted">{{ article()?.publishedAt | date:'mediumDate' }}</span>
@@ -20,28 +20,47 @@
           <span class="text-muted small ms-2">{{ article()?.readDuration || '4 min read' }}</span>
         </div>
         <div class="ms-auto d-flex gap-3">
-          <button class="btn btn-light px-3 py-1 d-flex align-items-center gap-2" (click)="showComments()"
-    aria-label="Show Comments">
-    <i class="bi bi-chat-dots"></i> Show Comments
-  </button>
+          <button class="btn btn-light btn-sm px-3 py-1 d-inline-flex align-items-center gap-2" (click)="showComments()"
+            aria-label="Show Comments">
+            <i class="bi bi-chat-dots"></i>
+            <span class="small">Show Comments</span>
+          </button>
           <span class="text-muted"><i class="bi bi-eye"></i> {{ article()?.views }}</span>
           <span class="text-muted"><i class="bi bi-heart"></i> {{ article()?.likes }}</span>
-          <button class="btn btn-link p-0"><i class="bi bi-share"></i></button>
-          <button class="btn btn-link p-0"><i class="bi bi-bookmark"></i></button>
-          <button class="btn btn-link p-0"><i class="bi bi-three-dots"></i></button>
+          <button class="btn btn-link p-0" (click)="shareArticle()"><i class="bi bi-share"></i></button>
+          <button class="btn btn-link p-0 d-inline-flex align-items-center" (click)="toggleBookmark()"
+            aria-label="Save article">
+            <i class="bi" [ngClass]="isBookmarked() ? 'bi-bookmark-fill' : 'bi-bookmark'"></i>
+          </button>
+          <div class="dropdown">
+            <button class="btn btn-link p-0 d-inline-flex align-items-center" type="button" id="moreMenuButton"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-three-dots"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreMenuButton">
+              <li>
+                <button class="dropdown-item" type="button" (click)="copyLink()">
+                  Copy link
+                </button>
+              </li>
+              <li>
+                <button class="dropdown-item" type="button" (click)="reportArticle()">
+                  Report article
+                </button>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-      <!-- Thumbnail -->
+
       <img *ngIf="article()?.thumbnail" [src]="article().thumbnail" class="img-fluid rounded shadow w-100 mb-3"
         style="max-height:250px;object-fit:cover;">
-      <!-- Article Content -->
+
       <div class="article-content mb-4" [innerHTML]="article()?.content"></div>
-      <!-- Related Articles Carousel -->
+
       <app-related-articles [currentArticleId]="articleId()" [showCarousel]="true"></app-related-articles>
-      <!-- Comments -->
-      <!-- <app-comments [articleId]="articleId()"></app-comments> -->       
-      <app-comments #commentsSidebar [articleId]="articleId()">
-      </app-comments>
+
+      <app-comments #commentsSidebar [articleId]="articleId()"></app-comments>
     </div>
   </div>
 </div>

@@ -1,7 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { Author } from '../models/author.model';
 import authorsData from '../data/authors.json';
-import { DUMMY_AUTHORS } from '../data/authors-data';
+import RISING_AUTHORS from '../data/rising-authors.json';
 
 @Injectable({
   providedIn: 'root'
@@ -18,15 +18,15 @@ export class AuthorService {
     return this._authors().find(author => author.id === id);
   }
 
-  private _dummyAuthors = signal(DUMMY_AUTHORS);
-  dummyAuthors = this._dummyAuthors.asReadonly();
+  private _risignAuthors = signal(RISING_AUTHORS);
+  dummyAuthors = this._risignAuthors.asReadonly();
 
   getRisingAuthors() {
-    return this._dummyAuthors().slice(0, 3); // Top 3 by followers or logic
+    return this._risignAuthors().sort((a,b) => b.followers - a.followers).slice(0, 3);
   }
 
   searchAuthors(name: string) {
     const lower = name.toLowerCase();
-    return this._dummyAuthors().filter(a => a.name.toLowerCase().includes(lower));
+    return this._risignAuthors().filter(a => a.name.toLowerCase().includes(lower));
   }
 }

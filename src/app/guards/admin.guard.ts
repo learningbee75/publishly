@@ -8,7 +8,6 @@ export class AdminGuard {
 
   canActivate: CanActivateFn = () => {
     const user = this.auth.currentUser();
-    // Your admin logic—adapt as needed:
     if (user && user.email === 'admin@example.com') return true;
     this.router.navigate(['/']);
     return false;
