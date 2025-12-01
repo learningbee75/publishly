@@ -8,7 +8,6 @@ export class AuthGuard {
 
   canActivate: CanActivateFn = () => {;
 
-    // localStorage signal:
     if (this.auth.isLoggedInLocal()) return true;
 
     this.router.navigate(['/login']);

@@ -1,29 +1,62 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
-import { ArticleDetailComponent } from './components/article-detail/article-detail.component';
-import { EditorComponent } from './components/editor/editor.component';
-import { LoginComponent } from './components/auth/login/login.component';
-import { RegisterComponent } from './components/auth/register/register.component';
-import { ProfileComponent } from './components/author-directory/profile/profile.component';
-import { AuthorDirectoryComponent } from './components/author-directory/author-directory.component';
-import { ExploreComponent } from './components/explore/explore.component';
-import { SettingsComponent } from './components/settings/settings.component';
 import { NotFoundComponent } from './components/shared/not-found/not-found.component';
-import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AdminGuard } from './guards/admin.guard';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent, pathMatch: 'full' },
-  { path: 'article/:id', component: ArticleDetailComponent },
-  { path: 'editor', component: EditorComponent, canActivate: [AuthGuard] },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-  { path: 'profile/:id', component: ProfileComponent },
-  { path: 'directory', component: AuthorDirectoryComponent },
-  { path: 'explore', component: ExploreComponent },
-  { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
-  { path: 'admin', component: AdminDashboardComponent, canActivate: [AdminGuard] },
+  {
+    path: '',
+    redirectTo: '/home',
+    pathMatch: 'full'
+  },  
+  {
+    path: 'home',
+    component: HomeComponent,
+  },
+  { 
+    path: 'article/:id',
+    loadComponent: () => import('./components/article-detail/article-detail.component').then(c => c.ArticleDetailComponent) 
+  },
+  { 
+    path: 'editor', 
+    loadComponent: () => import('./components/editor/editor.component').then(c => c.EditorComponent),
+    canActivate: [AuthGuard] 
+  },
+  { 
+    path: 'login', 
+    loadComponent: () => import('./components/auth/login/login.component').then(c => c.LoginComponent)
+  },
+  { 
+    path: 'register', 
+    loadComponent: () => import('./components/auth/register/register.component').then(c => c.RegisterComponent)
+  },
+  { 
+    path: 'profile', 
+    loadComponent: () => import('./components/author-directory/profile/profile.component').then(c => c.ProfileComponent),
+    canActivate: [AuthGuard] 
+  },
+  { 
+    path: 'profile/:id', 
+    loadComponent: () => import('./components/author-directory/profile/profile.component').then(c => c.ProfileComponent)
+  },
+  { 
+    path: 'directory', 
+    loadComponent: () => import('./components/author-directory/author-directory.component').then(c => c.AuthorDirectoryComponent)
+  },
+  { 
+    path: 'explore', 
+    loadComponent: () => import('./components/explore/explore.component').then(c => c.ExploreComponent)
+  },
+  { 
+    path: 'settings', 
+    loadComponent: () => import('./components/settings/settings.component').then(c => c.SettingsComponent), 
+    canActivate: [AuthGuard]
+  },
+  { 
+    path: 'admin', 
+    loadComponent: () => import('./components/admin-dashboard/admin-dashboard.component').then(c => c.AdminDashboardComponent), 
+    canActivate: [AdminGuard]
+  },
   { path: '**', component: NotFoundComponent }
 ];

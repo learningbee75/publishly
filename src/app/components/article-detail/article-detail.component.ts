@@ -87,7 +87,7 @@ export class ArticleDetailComponent implements OnInit {
           url
         });
       } catch {
-        // user canceled share
+        console.log('error occurred while sharing');
       }
     } else {
       await navigator.clipboard.writeText(url);

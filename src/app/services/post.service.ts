@@ -108,7 +108,6 @@ export class PostService {
   upsertDraft(draft: Omit<Draft, 'id' | 'updatedAt' | 'userId'> & { id?: number }): Draft {
     const now = new Date().toISOString();
     if (draft.id != null) {
-      // update existing
       let updated: Draft | undefined;
       this._drafts.update(list =>
         list.map(d => {
@@ -128,7 +127,6 @@ export class PostService {
       if (updated) return updated;
     }
 
-    // create new draft
     const newId = Math.max(0, ...this._drafts().map(d => d.id)) + 1;
     const newDraft: Draft = {
       id: newId,

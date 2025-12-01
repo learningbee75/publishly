@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AuthorDirectoryComponent } from './author-directory.component';
+import { ActivatedRoute } from '@angular/router';
 
 describe('AuthorDirectoryComponent', () => {
   let component: AuthorDirectoryComponent;
@@ -8,7 +9,10 @@ describe('AuthorDirectoryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AuthorDirectoryComponent]
+      imports: [AuthorDirectoryComponent],
+      providers: [
+        { provide: ActivatedRoute, useValue: { snapshot: { params: {} } } }
+      ]
     })
     .compileComponents();
 

@@ -57,3 +57,30 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+- Email: `admin@example.com`  
+- Password: `admin123`  
+- Role: Admin (sees **Admin dashboard** link in the user menu and can open `/admin`)
+
+### Regular demo users
+
+- `aarav.mehta@example.com` / `aarav12345`  
+- `diya.iyer@example.com` / `diya12345`  
+- `rohan.kulkarni@example.com` / `rohan12345`
+
+These are stored in the dummy `users.json` and are used by the local auth service for non-admin flows (profile, directory, etc.).
+
+## Notes
+
+- All credentials are **dummy** and intended only for local development.  
+- Do not reuse these passwords for any real accounts.
+
+
+## refer followlling link
+
+- https://publishly-app.netlify.app/home
+
+
+## added test cases for home component
+
+- home component test cases
